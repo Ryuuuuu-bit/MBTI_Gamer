@@ -1,9 +1,10 @@
 // ===== Config: fill before launch =====
 window.CONFIG = {
-  siteUrl: "ryuuuuu-bit.github.io/MBTI_Gamer",   // printed on the Story card
+  siteUrl: "web-production-cbb68e04.up.railway.app",   // printed on the Story card
   igHandle: "",  // e.g. "@gamertypes"
-  artPath: "art/chibi/", // GPT's chibi PNGs: <CODE>.png
-  heroArt: "art/hero.png",
+  artPath: "art/chibi/", // GPT's chibi art: <CODE>.png originals, served as compressed <CODE>.webp
+  artExt: ".webp",
+  heroArt: "art/hero.webp",
   sponsor: null, // { th, en, url }
   gear: {}       // { INTJ: [{ label, url }] } affiliate links per type
 };

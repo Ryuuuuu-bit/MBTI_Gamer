@@ -1,0 +1,9 @@
+:8080 {
+	root * /srv
+	encode zstd gzip
+	file_server
+	@art path /art/*
+	header @art Cache-Control "public, max-age=604800"
+	@notart not path /art/*
+	header @notart Cache-Control "public, max-age=300"
+}

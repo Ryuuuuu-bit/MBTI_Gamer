@@ -1,0 +1,5 @@
+# Web uses compressed .webp; keep the PNG originals out of the image
+art/**/*.png
+Dockerfile
+.dockerignore
+README.md

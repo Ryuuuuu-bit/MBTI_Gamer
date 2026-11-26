@@ -21,7 +21,7 @@
   const colorOf = (code) => GROUPS[groupOf(code)].color;
 
   // ---------- Chibi art with emoji fallback ----------
-  const artSrc = (code) => `${CONFIG.artPath}${code}.png`;
+  const artSrc = (code) => `${CONFIG.artPath}${code}${CONFIG.artExt || ".png"}`;
   function chibi(code, cls = "") {
     const ty = TYPES[code];
     return `<div class="chibi ${cls}" style="--tc:${colorOf(code)}">` +
