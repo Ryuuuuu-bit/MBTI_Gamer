@@ -128,7 +128,6 @@ html[lang="th"] .hero h1 { line-height: 1.25; letter-spacing: -.01em; font-size:
 .group { padding: 20px; border-radius: var(--r); background: linear-gradient(160deg, color-mix(in oklch, var(--tc), transparent 78%), oklch(100% 0 0 / .02)); border: 1px solid color-mix(in oklch, var(--tc), transparent 65%); }
 .group-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
 .group-head b { font-size: 20px; }
-.group-head span { color: var(--muted); font-size: 13px; font-family: "Bricolage Grotesque"; letter-spacing: .1em; }
 .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .type-tile { border: 1px solid var(--line); background: oklch(0% 0 0 / .22); border-radius: 20px; padding: 10px 8px 12px; cursor: pointer; text-align: center;
   transition: transform .35s var(--ease), background .3s, border-color .3s; }
@@ -139,7 +138,7 @@ html[lang="th"] .hero h1 { line-height: 1.25; letter-spacing: -.01em; font-size:
 
 /* ---- Bento ---- */
 .bento { display: grid; gap: 16px; }
-.about { grid-template-columns: repeat(4, 1fr); margin-top: 24px; }
+.about { grid-template-columns: repeat(3, 1fr); margin-top: 24px; }
 .about .tile { padding: 24px; }
 .about b { display: block; font-size: 19px; margin-bottom: 8px; }
 .about p { margin: 0; color: var(--muted); font-size: 15px; }
@@ -175,8 +174,7 @@ html[lang="th"] .hero h1 { line-height: 1.25; letter-spacing: -.01em; font-size:
 .r-axes { grid-column: span 2; }
 .r-card { grid-column: span 2; grid-row: span 2; }
 .r-desc { grid-column: span 4; }
-.r-duo { grid-column: span 2; }
-.r-theory { grid-column: span 2; }
+.r-duo { grid-column: span 4; }
 .r-gear { grid-column: span 6; }
 .tilt { transform-style: preserve-3d; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .4s var(--ease); }
 .tilt .chibi { width: 100%; animation: float 6s ease-in-out infinite; }
@@ -203,8 +201,6 @@ html[lang="th"] .hero h1 { line-height: 1.25; letter-spacing: -.01em; font-size:
 .duo-row { display: flex; align-items: center; gap: 14px; cursor: pointer; }
 .duo-row .chibi { width: 96px; flex: none; }
 .duo-row b { font-family: "Bricolage Grotesque"; font-size: 24px; display: block; }
-.r-theory p { margin: 0; color: var(--muted); }
-.r-theory b { color: var(--ink); }
 .r-gear ul { margin: 0; padding-left: 20px; }
 .r-gear a, .sponsor { color: var(--c2); }
 .sponsor { display: block; text-align: center; margin-top: 20px; }
@@ -241,7 +237,7 @@ dialog p { color: var(--muted); }
   .about { grid-template-columns: 1fr 1fr; }
   .result { grid-template-columns: 1fr 1fr; }
   .r-hero, .r-desc, .r-gear { grid-column: span 2; }
-  .r-axes, .r-duo, .r-theory { grid-column: span 2; }
+  .r-axes, .r-duo { grid-column: span 2; }
   .r-card { grid-column: span 2; grid-row: auto; }
   .r-card .story { max-width: 360px; margin: 0 auto; }
 }

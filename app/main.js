@@ -65,7 +65,7 @@
     $("groups").innerHTML = Object.entries(GROUPS).map(([g, info]) => {
       const codes = Object.keys(TYPES).filter((c) => groupOf(c) === g);
       return `<div class="group reveal" style="--tc:${info.color}">
-        <div class="group-head"><b>${info[lang]}</b><span>${g}</span></div>
+        <div class="group-head"><b>${info[lang]}</b></div>
         <div class="tiles">${codes.map((c) => `
           <button class="type-tile" data-code="${c}" style="--tc:${info.color}">
             ${chibi(c)}<span class="t-code">${c}</span><span class="t-name">${esc(TYPES[c][lang].name)}</span>
@@ -85,14 +85,14 @@
 
   // ---------- Type detail dialog ----------
   function openType(code) {
-    const ty = TYPES[code], d = ty[lang], [dom, aux] = DYNAMICS[code];
+    const ty = TYPES[code], d = ty[lang];
     $("dlgBody").innerHTML = `
       <div class="dlg-head" style="--c:${colorOf(code)}">${chibi(code)}
         <div><div class="code">${code}</div><h2>${esc(d.name)}</h2><p>“${esc(d.tag)}”</p></div></div>
       <p>${esc(d.desc)}</p>
       <h3>${t("genres")}</h3><ul class="chips" style="--c:${colorOf(code)}">${d.genres.map((g) => `<li>${esc(g)}</li>`).join("")}</ul>
-      <h3 style="margin-top:18px">${t("duo")}</h3><p>${TYPES[ty.duo].emoji} <b>${ty.duo}</b> · ${esc(TYPES[ty.duo][lang].name)}</p>
-      <h3>${t("theory")}</h3><p>${t("theoryText", { code, dom, aux, domName: FUNCS[dom][lang], auxName: FUNCS[aux][lang] })}</p>`;
+      <h3 style="margin-top:18px">${t("strengths")}</h3><ul class="chips" style="--c:${colorOf(code)}">${d.strengths.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
+      <h3 style="margin-top:18px">${t("duo")}</h3><p>${TYPES[ty.duo].emoji} <b>${ty.duo}</b> · ${esc(TYPES[ty.duo][lang].name)}</p>`;
     $("typeDialog").showModal();
     track("type_view", { type: code });
   }
@@ -169,7 +169,7 @@
     $("rCode").textContent = code;
     $("rName").textContent = d.name;
     $("rTag").textContent = `“${d.tag}”`;
-    $("rGroup").textContent = `${GROUPS[g][lang]} · ${g}`;
+    $("rGroup").textContent = GROUPS[g][lang];
 
     $("rAxes").innerHTML = AXIS_ORDER.map((ax) => {
       const [a, b] = LETTERS[ax], { letter, pct, close } = axes[ax], left = letter === a;
@@ -192,8 +192,6 @@
     $("rDuo").innerHTML = `${chibi(ty.duo)}<div><b>${ty.duo}</b>${esc(duo[lang].name)}<p class="note">${t("duoNote")}</p></div>`;
     $("rDuo").onclick = () => openType(ty.duo);
     $("rTagFriend").textContent = t("tagFriend", { duo: ty.duo });
-    const [dom, aux] = DYNAMICS[code];
-    $("rTheory").innerHTML = t("theoryText", { code, dom, aux, domName: FUNCS[dom][lang], auxName: FUNCS[aux][lang] });
 
     const gear = (CONFIG.gear || {})[code] || [];
     $("gearBox").hidden = !gear.length;

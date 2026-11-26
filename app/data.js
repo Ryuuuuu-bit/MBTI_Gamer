@@ -17,24 +17,6 @@ window.GROUPS = {
 };
 window.groupOf = (code) => (code[1] === "N" ? "N" + code[2] : "S" + (code[3] === "J" ? "J" : "P"));
 
-// Jungian functions used by Myers' type dynamics (dominant -> auxiliary)
-window.FUNCS = {
-  Ni: { th: "สัญชาตญาณภายใน", en: "Introverted Intuition" },
-  Ne: { th: "สัญชาตญาณภายนอก", en: "Extraverted Intuition" },
-  Si: { th: "การรับรู้ภายใน", en: "Introverted Sensing" },
-  Se: { th: "การรับรู้ภายนอก", en: "Extraverted Sensing" },
-  Ti: { th: "ตรรกะภายใน", en: "Introverted Thinking" },
-  Te: { th: "ตรรกะภายนอก", en: "Extraverted Thinking" },
-  Fi: { th: "คุณค่าภายใน", en: "Introverted Feeling" },
-  Fe: { th: "ความรู้สึกต่อผู้อื่น", en: "Extraverted Feeling" }
-};
-window.DYNAMICS = {
-  ISTJ: ["Si", "Te"], ISFJ: ["Si", "Fe"], INFJ: ["Ni", "Fe"], INTJ: ["Ni", "Te"],
-  ISTP: ["Ti", "Se"], ISFP: ["Fi", "Se"], INFP: ["Fi", "Ne"], INTP: ["Ti", "Ne"],
-  ESTP: ["Se", "Ti"], ESFP: ["Se", "Fi"], ENFP: ["Ne", "Fi"], ENTP: ["Ne", "Ti"],
-  ESTJ: ["Te", "Si"], ESFJ: ["Fe", "Si"], ENFJ: ["Fe", "Ni"], ENTJ: ["Te", "Ni"]
-};
-
 window.AXES = {
   E: { th: "สายปาร์ตี้", en: "Squad" },   I: { th: "สายเดี่ยว", en: "Solo" },
   S: { th: "สายระบบ", en: "Mechanics" }, N: { th: "สายโลกเกม", en: "Worlds" },
@@ -44,37 +26,34 @@ window.AXES = {
 
 window.UI = {
   th: {
-    badge: "ฟรี · TH/EN · แชร์ลง IG Story ได้",
+    badge: "ฟรี · ไม่ต้องสมัคร · แชร์ลง IG Story ได้",
     heroTitle: "คุณเป็น<em>เกมเมอร์สายไหน?</em>",
     heroSub: "ตอบ 20 ข้อ ใช้เวลาราว 3 นาที แล้วเจอตัวละครประจำตัวคุณจากเกมเมอร์ 16 สาย",
     start: "เริ่มทำแบบทดสอบ",
     seeAll: "ดูทั้ง 16 สาย",
     chips: ["20 คำถาม", "~3 นาที", "16 ตัวละคร", "การ์ด IG Story"],
     galleryTitle: "เกมเมอร์ 16 สาย",
-    gallerySub: "แบ่งเป็น 4 กลุ่มสี แตะตัวละครเพื่อดูรายละเอียด",
-    aboutTitle: "แบบทดสอบนี้วัดอะไร",
+    gallerySub: "แตะตัวละครเพื่อดูรายละเอียด",
+    aboutTitle: "แบบทดสอบนี้ดูอะไรบ้าง",
     about: [
-      ["4 แกน", "ได้แรงบันดาลใจจากแนวคิดเรื่อง type ของ Jung และ Myers-Briggs: แหล่งพลังงาน (ปาร์ตี้/เดี่ยว), การรับข้อมูล (ระบบ/โลกเกม), การตัดสินใจ (ชนะ/อิน), และสไตล์การเล่น (แพลน/ด้นสด)"],
-      ["วัดความชอบ ไม่ใช่ฝีมือ", "ผลบอกว่าคุณ \"ชอบ\" เล่นแบบไหน ไม่ได้บอกว่าเก่งหรือไม่เก่ง ทุกคนใช้ได้ทั้งสองฝั่ง"],
-      ["บอกตรงๆ เมื่อก้ำกึ่ง", "แกนที่คะแนนใกล้ 50/50 จะติดป้าย \"ก้ำกึ่ง\" เพราะแกนแบบนี้มีโอกาสพลิกเมื่อทำซ้ำ"],
-      ["เพื่อความบันเทิง", "ไม่ใช่แบบประเมินทางจิตวิทยา ห้ามใช้คัดเลือกคนเข้าทีมหรือเข้าทำงาน"]
+      ["4 สไตล์การเล่น", "ชอบเล่นกับเพื่อนหรือเล่นเดี่ยว · ชอบระบบหรือโลกในเกม · เล่นเพื่อชนะหรือเพื่ออิน · ชอบแพลนหรือด้นสด"],
+      ["ไม่มีสายไหนเก่งกว่ากัน", "ผลบอกว่าคุณชอบเล่นแบบไหน ไม่ได้วัดว่าเล่นเก่งแค่ไหน"],
+      ["ผลก้ำกึ่ง? ลองใหม่ได้", "ถ้าบางด้านคะแนนใกล้กันมาก ผลอาจเปลี่ยนเมื่อทำอีกครั้ง"]
     ],
-    notAffiliated: "ไม่ได้เกี่ยวข้องกับ The Myers-Briggs Company หรือ 16Personalities · MBTI เป็นเครื่องหมายการค้าของเจ้าของ",
+    notAffiliated: "ทำขึ้นเพื่อความสนุก ไม่ใช่แบบประเมินทางจิตวิทยา · ไม่ได้เกี่ยวข้องกับ The Myers-Briggs Company",
     qOf: "ข้อ {n} / {t}",
-    pickHint: "แตะฝั่งที่ใช่กว่า หรือเลือกระดับตรงกลาง",
+    pickHint: "แตะข้อที่ใช่ หรือแตะวงกลมถ้าแค่ค่อนไปทางนั้น",
     scale: ["ใช่ฝั่งบนมาก", "ค่อนไปฝั่งบน", "ค่อนไปฝั่งล่าง", "ใช่ฝั่งล่างมาก"],
     back: "ย้อนกลับ",
     quit: "ออก",
     youAre: "เกมเมอร์สายของฉันคือ",
-    axesTitle: "สเปกตรัมของคุณ",
+    axesTitle: "สไตล์การเล่นของคุณ",
     borderline: "ก้ำกึ่ง",
-    borderlineNote: "แกนที่ก้ำกึ่งอาจพลิกได้เมื่อทำซ้ำ ลองทำอีกครั้งในวันอื่นแล้วเทียบผล",
+    borderlineNote: "ด้านที่คะแนนใกล้กันอาจเปลี่ยนได้ ลองทำอีกครั้งวันหลังแล้วเทียบผลดู",
     strengths: "จุดเด่น",
     genres: "แนวเกมที่ใช่",
     duo: "คู่หูในเกม",
-    duoNote: "คู่หูที่เล่นด้วยกันแล้วเติมเต็มกัน (เพื่อความสนุก)",
-    theory: "เบื้องหลังทางทฤษฎี",
-    theoryText: "ในโมเดล type dynamics ของ Myers สาย {code} ใช้ <b>{dom}</b> ({domName}) เป็นฟังก์ชันหลัก และ <b>{aux}</b> ({auxName}) เป็นฟังก์ชันรอง",
+    duoNote: "เล่นด้วยกันแล้วเติมเต็มกันพอดี",
     storyCard: "การ์ด IG Story",
     share: "แชร์ลง Story",
     save: "บันทึกรูป",
@@ -92,37 +71,34 @@ window.UI = {
     group: "กลุ่ม"
   },
   en: {
-    badge: "Free · TH/EN · Share to your IG Story",
+    badge: "Free · No sign-up · Share to your IG Story",
     heroTitle: "What kind of <em>gamer are you?</em>",
     heroSub: "20 questions, about 3 minutes. Meet your character among the 16 gamer types.",
     start: "Start the quiz",
     seeAll: "See all 16 types",
     chips: ["20 questions", "~3 minutes", "16 characters", "IG Story card"],
     galleryTitle: "The 16 gamer types",
-    gallerySub: "Four color groups. Tap a character for details.",
-    aboutTitle: "What this quiz measures",
+    gallerySub: "Tap a character for details.",
+    aboutTitle: "How it works",
     about: [
-      ["4 axes", "Inspired by Jung's and Myers-Briggs' ideas about type: energy (Squad/Solo), information (Mechanics/Worlds), decisions (Win/Feels), and play style (Planner/Freestyle)."],
-      ["Preference, not skill", "Your result says how you like to play, not how good you are. Everyone uses both sides."],
-      ["Honest about close calls", "Axes near 50/50 get a \"close call\" tag, because those are the ones most likely to flip on a retake."],
-      ["Just for fun", "Not a psychological assessment. Never use it to pick team members or hire people."]
+      ["4 play styles", "Squad or solo · mechanics or worlds · play to win or to feel · plan ahead or freestyle"],
+      ["No type is better", "It shows how you like to play, not how good you are."],
+      ["Close call? Try again", "If some sides are nearly even, your result may change on a retake."]
     ],
-    notAffiliated: "Not affiliated with The Myers-Briggs Company or 16Personalities · MBTI is a trademark of its owner",
+    notAffiliated: "Made for fun, not a psychological assessment · Not affiliated with The Myers-Briggs Company",
     qOf: "Question {n} / {t}",
-    pickHint: "Tap the side that fits better, or pick a level in between",
+    pickHint: "Tap the answer that fits, or a circle if you only lean that way",
     scale: ["Strongly the top one", "Leaning top", "Leaning bottom", "Strongly the bottom one"],
     back: "Back",
     quit: "Quit",
     youAre: "My gamer type is",
-    axesTitle: "Your spectrum",
+    axesTitle: "Your play style",
     borderline: "Close call",
-    borderlineNote: "Close-call axes can flip on a retake. Try again another day and compare.",
+    borderlineNote: "Close calls can change. Try again another day and compare.",
     strengths: "Strengths",
     genres: "Your genres",
     duo: "Best duo",
-    duoNote: "The partner who fills your gaps in co-op (just for fun)",
-    theory: "The theory behind it",
-    theoryText: "In Myers' type dynamics, {code} leads with <b>{dom}</b> ({domName}) and backs it up with <b>{aux}</b> ({auxName}).",
+    duoNote: "You fill each other's gaps in co-op",
     storyCard: "IG Story card",
     share: "Share to Story",
     save: "Save image",
