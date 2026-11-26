@@ -24,8 +24,9 @@
   const colorOf = (code) => GROUPS[groupOf(code)].color;
 
   // ---------- Hero art: gendered hero -> first chibi -> emoji ----------
-  function artSources(code, g = gender) {
+  function artSources(code, g = gender, full = false) {
     const list = (CONFIG.heroExts || [".webp", ".png"]).map((ext) => `${CONFIG.heroPath}${code}-${g}${ext}`);
+    if (!full) list.unshift(`${CONFIG.heroPath}thumb/${code}-${g}.webp`); // 384px, ~38 KB
     list.push(`${CONFIG.artPath}${code}${CONFIG.artExt || ".png"}`);
     return list;
   }
@@ -34,8 +35,8 @@
     if (rest.length) { img.dataset.alt = rest.slice(1).join("|"); img.src = rest[0]; }
     else img.parentNode.classList.add("noart");
   };
-  function chibi(code, g = gender) {
-    const ty = TYPES[code], [first, ...rest] = artSources(code, g);
+  function chibi(code, g = gender, full = false) {
+    const ty = TYPES[code], [first, ...rest] = artSources(code, g, full);
     return `<div class="chibi" style="--tc:${colorOf(code)}">` +
       `<img src="${first}" data-alt="${rest.join("|")}" alt="${code} ${esc(ty[lang].name)}" loading="lazy" decoding="async" onerror="__nextArt(this)">` +
       `<span class="emoji" aria-hidden="true">${ty.emoji}</span></div>`;
@@ -58,9 +59,14 @@
   }
 
   // ---------- Screens (View Transitions when supported) ----------
-  function show(id) {
+  let current = "home";
+  function show(id, mode = "push") {
+    if (mode === "push" && id !== current) history.pushState({ screen: id }, "", location.search);
+    else if (mode === "replace") history.replaceState({ screen: id }, "", location.search);
+    current = id;
     const swap = () => {
       SCREENS.forEach((s) => ($(s).hidden = s !== id));
+      $("shareBar").hidden = id !== "result";
       window.scrollTo({ top: 0, behavior: "instant" });
     };
     if (document.startViewTransition && !reduceMotion) document.startViewTransition(swap); else swap();
@@ -190,16 +196,16 @@
   function finish() {
     result = score(answers);
     track("quiz_complete", { type: result.code, lang, gender });
-    history.replaceState(null, "", `?r=${result.code}&g=${gender}&lang=${lang}`);
+    history.replaceState({ screen: "quiz" }, "", `?r=${result.code}&g=${gender}&lang=${lang}`);
     renderResult();
-    show("result");
+    show("result", "replace"); // back from the result goes to the hero picker, not into the quiz
   }
 
   // ---------- Result ----------
   async function renderResult() {
     const { code, axes } = result, ty = TYPES[code], d = ty[lang], g = groupOf(code);
     setColor(colorOf(code));
-    $("rArt").innerHTML = chibi(code);
+    $("rArt").innerHTML = chibi(code, gender, true);
     $("rCode").textContent = code;
     $("rName").textContent = d.name;
     $("rTag").textContent = `“${d.tag}”`;
@@ -255,7 +261,7 @@
     try {
       await Promise.all([`800 100px "Bricolage Grotesque"`, `700 60px "Anuphan"`, `400 40px "Anuphan"`].map((f) => document.fonts.load(f, "กขAa")));
     } catch (_) {}
-    const art = noArt ? null : await loadFirst(artSources(code));
+    const art = noArt ? null : await loadFirst(artSources(code, gender, true));
 
     const c = document.createElement("canvas");
     c.width = W; c.height = H;
@@ -377,6 +383,21 @@
   $("goBtn").onclick = startQuiz;
   $("createBack").onclick = () => show("home");
   $("quitBtn").onclick = () => { answers = []; show("home"); };
+  // Phone back button / swipe: previous question inside the quiz, otherwise previous screen
+  history.replaceState({ screen: "home" }, "", location.search);
+  addEventListener("popstate", (e) => {
+    const target = (e.state && e.state.screen) || "home";
+    if (current === "quiz" && answers.length) {
+      answers.pop(); renderQuestion();
+      history.pushState({ screen: "quiz" }, "", location.search);
+      return;
+    }
+    if (target === "result" && !result) return show("home", "none");
+    if (target === "quiz") { if (!answers.length) return show("create", "none"); show("quiz", "none"); return renderQuestion(); }
+    show(target, "none");
+  });
+  $("shareBtn2").onclick = () => share();
+  $("saveBtn2").onclick = () => save();
   $("homeLink").onclick = (e) => { e.preventDefault(); result = null; setColor("#8B5CF6"); history.replaceState(null, "", `?lang=${lang}`); renderHome(); show("home"); };
   $("stmtA").onclick = () => answer(2);
   $("stmtB").onclick = () => answer(-2);

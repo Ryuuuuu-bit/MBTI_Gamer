@@ -68,7 +68,6 @@ main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 ca
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid var(--line); background: oklch(100% 0 0 / .06);
   padding: 14px 22px; border-radius: 999px; font-weight: 600; cursor: pointer; text-decoration: none; color: var(--ink);
   transition: transform .2s var(--ease), background .2s, box-shadow .3s; -webkit-tap-highlight-color: transparent; }
-.btn:hover { background: oklch(100% 0 0 / .12); }
 .btn:active { transform: scale(.96); }
 .btn.primary { position: relative; border: 0; color: #fff; isolation: isolate;
   background: linear-gradient(135deg, var(--c), #ec4899); box-shadow: 0 12px 40px -10px var(--c); }
@@ -79,7 +78,6 @@ main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 ca
 .btn.xl { padding: 18px 30px; font-size: 19px; }
 .btn.ghost { background: none; }
 .arrow { transition: transform .3s var(--ease); }
-.btn:hover .arrow { transform: translateX(4px); }
 .icon-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: oklch(100% 0 0 / .06); cursor: pointer; flex: none; }
 .link { display: block; margin: 16px auto 0; background: none; border: 0; color: var(--muted); cursor: pointer; padding: 8px 16px; }
 .link[disabled] { visibility: hidden; }
@@ -131,7 +129,6 @@ html[lang="th"] .hero h1 { line-height: 1.25; letter-spacing: -.01em; font-size:
 .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .type-tile { border: 1px solid var(--line); background: oklch(0% 0 0 / .22); border-radius: 20px; padding: 10px 8px 12px; cursor: pointer; text-align: center;
   transition: transform .35s var(--ease), background .3s, border-color .3s; }
-.type-tile:hover { transform: translateY(-6px) rotate(-1deg); background: color-mix(in oklch, var(--tc), transparent 80%); border-color: var(--tc); }
 .type-tile .chibi { width: 100%; }
 .type-tile .t-code { font-weight: 800; font-family: "Bricolage Grotesque"; letter-spacing: .04em; display: block; margin-top: 4px; }
 .type-tile .t-name { font-size: 12px; color: var(--muted); display: block; line-height: 1.3; }
@@ -158,12 +155,11 @@ html[lang="th"] .hero h1 { line-height: 1.25; letter-spacing: -.01em; font-size:
   border: 1.5px solid var(--line); background: oklch(100% 0 0 / .04); transition: .25s var(--ease); }
 .stmt.a { --s: #22d3ee; } .stmt.b { --s: #ec4899; }
 .stmt::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--s); margin-right: 12px; box-shadow: 0 0 12px var(--s); vertical-align: middle; }
-.stmt:hover, .stmt.sel { border-color: var(--s); background: color-mix(in oklch, var(--s), transparent 85%); transform: scale(1.01); }
+.stmt.sel { border-color: var(--s); background: color-mix(in oklch, var(--s), transparent 85%); transform: scale(1.01); }
 .scale { display: flex; justify-content: center; align-items: center; gap: clamp(14px, 4vw, 28px); padding: 4px 0; }
 .dot { border-radius: 50%; cursor: pointer; background: none; border: 2px solid; transition: .2s var(--ease); }
 .dot.a2, .dot.b2 { width: 52px; height: 52px; } .dot.a1, .dot.b1 { width: 38px; height: 38px; }
 .dot.a2, .dot.a1 { border-color: #22d3ee; } .dot.b2, .dot.b1 { border-color: #ec4899; }
-.dot:hover { transform: scale(1.12); }
 .dot.sel.a2, .dot.sel.a1 { background: #22d3ee; } .dot.sel.b2, .dot.sel.b1 { background: #ec4899; }
 .hint { text-align: center; font-size: 13px; color: var(--muted); margin: 0; }
 
@@ -294,8 +290,6 @@ dialog p { color: var(--muted); }
 .sym-pick .ring { position: absolute; inset: -6px; border-radius: 50%; padding: 2px; opacity: 0; transition: opacity .35s;
   background: conic-gradient(from var(--spin), transparent 0 55%, var(--g) 75%, #fff 80%, transparent 90%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 3s linear infinite; }
-.sym-pick:hover { transform: translateY(-4px); }
-.sym-pick:hover .glyph { transform: scale(1.06); }
 .sym-pick.on { border-color: var(--g); background: radial-gradient(circle at 50% 35%, color-mix(in oklch, var(--g), transparent 55%), color-mix(in oklch, var(--g), transparent 88%) 70%);
   box-shadow: 0 0 0 1px var(--g), 0 0 60px -6px color-mix(in oklch, var(--g), transparent 20%), inset 0 1px 0 oklch(100% 0 0 / .25); transform: scale(1.04); }
 .sym-pick.on .ring { opacity: 1; }
@@ -317,4 +311,93 @@ dialog p { color: var(--muted); }
   .block-head { align-items: flex-start; }
   .r-meta { justify-content: center; }
   .r-hero .r-stage { width: 74%; margin: 0 auto; }
+}
+
+
+/* =====================================================================
+   Mobile QA fixes (v4.1)
+   ===================================================================== */
+/* Hover effects only on devices that really hover (no "stuck" highlight after a tap) */
+@media (hover: hover) {
+  .btn:hover { background: oklch(100% 0 0 / .12); }
+  .btn.primary:hover { background: linear-gradient(135deg, var(--c), #ec4899); filter: brightness(1.08); }
+  .btn:hover .arrow { transform: translateX(4px); }
+  .type-tile:hover { transform: translateY(-6px) rotate(-1deg); background: color-mix(in oklch, var(--tc), transparent 80%); border-color: var(--tc); }
+  .stmt:hover { border-color: var(--s); background: color-mix(in oklch, var(--s), transparent 85%); transform: scale(1.01); }
+  .dot:hover { transform: scale(1.12); }
+  .sym-pick:hover { transform: translateY(-4px); }
+  .sym-pick:hover .glyph { transform: scale(1.06); }
+}
+/* Instant taps: no double-tap zoom delay, no grey flash */
+button, a, .type-tile, .stmt, .dot { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.stmt:active, .dot:active, .type-tile:active, .sym-pick:active { transform: scale(.97); }
+:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+/* Sticky share bar on phones (result screen only) */
+.sharebar { display: none; }
+@media (max-width: 600px) {
+  .sharebar:not([hidden]) { display: grid; grid-template-columns: 1fr auto; gap: 8px; position: fixed; z-index: 30;
+    left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); padding: 8px; border-radius: 999px; }
+  .sharebar .btn { min-height: 48px; padding: 12px 18px; }
+  #result { padding-bottom: 76px; }
+}
+
+@media (max-width: 600px) {
+  /* Bigger touch targets in the header */
+  .seg button { min-height: 44px; min-width: 48px; }
+  .nav { padding: 6px 6px 6px 16px; }
+  .brand { white-space: nowrap; font-size: 15px; }
+
+  /* Home: start button visible on the first screen */
+  .hero { gap: 0; }
+  .hero-art { width: 100%; max-width: 420px; aspect-ratio: 16 / 10; }
+  .hero-art .party { padding: 0 8%; }
+  .hero-art .party .chibi { width: 30%; margin: 0 -4%; }
+  .hero-art .party .chibi:nth-child(2), .hero-art .party .chibi:nth-child(3) { width: 36%; }
+  .hero-art::after { bottom: 6%; }
+  .hero h1 { margin-top: 10px; }
+  html[lang="th"] .hero h1 { font-size: clamp(34px, 10vw, 44px); }
+  .hero .pill { font-size: 12px; }
+  .lead { margin-top: 10px; font-size: 16px; }
+  .cta { margin-top: 18px; gap: 10px; }
+  .btn.xl { padding: 16px 22px; font-size: 18px; min-height: 54px; }
+  .hero .chips { margin-top: 18px; }
+  .friend { padding: 10px 14px; font-size: 14px; margin-bottom: 4px; }
+  .friend .chibi { width: 52px; }
+
+  /* Result: share card comes right after the hero */
+  .result .r-card { order: -1; }
+  .result .r-hero { order: -2; }
+}
+@media (max-width: 360px) {
+  .brand { font-size: 13px; gap: 8px; }
+  .brand-dot { width: 12px; height: 12px; }
+  .seg button { min-width: 44px; padding: 6px 10px; }
+}
+
+/* Short phones (iPhone SE etc.): the whole question fits without scrolling */
+@media (max-height: 700px) and (max-width: 600px) {
+  .quiz-top { margin-bottom: 12px; }
+  .qcard { padding: 18px 16px; gap: 12px; }
+  .qtext { font-size: 21px; min-height: 2.4em; }
+  .stmt { padding: 14px 16px; min-height: 60px; font-size: 16px; }
+  .dot.a2, .dot.b2 { width: 46px; height: 46px; } .dot.a1, .dot.b1 { width: 36px; height: 36px; }
+  .hint { font-size: 12px; }
+  .link { margin-top: 6px; }
+  .hero-art { aspect-ratio: 16 / 9; }
+  .create .muted { margin-bottom: 22px; }
+}
+/* Bigger invisible tap area around the small "leaning" circles */
+.dot { position: relative; }
+.dot::after { content: ""; position: absolute; inset: -9px; border-radius: 50%; }
+@media (max-width: 600px) {
+  .hero .cta .btn.primary { flex: 1 1 100%; white-space: nowrap; }
+  .hero .cta .btn.ghost { flex: 1 1 100%; min-height: 44px; padding: 8px; border: 0; background: none; text-decoration: underline; text-underline-offset: 4px; color: var(--muted); }
+}
+@media (max-height: 700px) and (max-width: 600px) {
+  .hero-art { aspect-ratio: 2 / 1; max-width: 340px; }
+  .hero h1 { font-size: clamp(30px, 9vw, 38px); }
+  html[lang="th"] .hero h1 { font-size: clamp(30px, 9.5vw, 40px); }
+  .lead { font-size: 15px; }
+  .hero .pill { font-size: 11px; padding: 4px 12px; }
 }
