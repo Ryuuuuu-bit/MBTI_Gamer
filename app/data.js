@@ -1,6 +1,6 @@
 // ===== Config: fill before launch =====
 window.CONFIG = {
-  siteUrl: "",   // e.g. "gamertypes.app" (printed on the Story card)
+  siteUrl: "ryuuuuu-bit.github.io/MBTI_Gamer",   // printed on the Story card
   igHandle: "",  // e.g. "@gamertypes"
   artPath: "art/chibi/", // GPT's chibi PNGs: <CODE>.png
   heroArt: "art/hero.png",
