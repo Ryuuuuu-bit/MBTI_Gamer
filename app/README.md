@@ -41,3 +41,11 @@ python -m http.server 8766
 2. Deploy เป็นเว็บแบบ static (GitHub Pages / Netlify / Vercel)
 3. ทำรูปพรีวิวตอนแชร์ลิงก์ (`og:image`) จากภาพของ GPT
 4. ใส่ GA4 หรือ Plausible: โค้ดยิง event `quiz_start`, `quiz_complete`, `share_click`, `share_done`, `save_click`, `type_view` ไว้แล้ว
+
+## ตัวนับผู้เข้าใช้งาน (v4.2)
+- `server.js` (Node ไม่ใช้แพ็กเกจเพิ่ม) เสิร์ฟหน้าเว็บ + API นับยอด แทน Caddy
+- `GET /api/stats` → `{ visitors, visits, completes }` · `POST /api/hit` ส่ง `{"e":"visit"|"start"|"complete"}`
+- **ผู้เข้าใช้งาน (คน)** = เบราว์เซอร์ที่เข้ามาครั้งแรก (จำด้วย id สุ่มใน localStorage) · **เข้าชม (ครั้ง)** = 1 ครั้งต่อ 1 session · **เล่นจบ (ครั้ง)** = ทำครบ 20 ข้อ
+- เก็บที่ `/data/stats.json` บน Railway volume `stats` (ไม่หายเมื่อ deploy ใหม่) มียอดรายวันและสัดส่วนแต่ละสาย/เพศใน `daily`, `byType`
+- ไม่เก็บข้อมูลส่วนตัว IP ใช้จำกัดความถี่ (30 ครั้ง/นาที) ในหน่วยความจำเท่านั้น
+- เวอร์ชัน GitHub Pages ไม่มี API จึงซ่อนตัวนับอัตโนมัติ
