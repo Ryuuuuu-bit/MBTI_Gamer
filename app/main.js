@@ -23,6 +23,45 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const colorOf = (code) => GROUPS[groupOf(code)].color;
 
+  // ---------- Visit counter (served by server.js; hidden if the API is not there) ----------
+  let lastStats = null;
+  function renderStats(s, animate = true) {
+    if (!s || typeof s.visits !== "number") return;
+    lastStats = s;
+    $("statsBox").hidden = false;
+    const fmt = (n) => Math.round(n).toLocaleString(lang === "th" ? "th-TH" : "en-US");
+    document.querySelectorAll("[data-stat]").forEach((el) => {
+      const to = s[el.dataset.stat] || 0, from = animate ? Number(el.dataset.v || 0) : to;
+      el.dataset.v = to;
+      if (reduceMotion || from === to) { el.textContent = fmt(to); return; }
+      const t0 = performance.now(), dur = 900;
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(from + (to - from) * e);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+  async function hit(e, extra = {}) {
+    try {
+      const r = await fetch("/api/hit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ e, ...extra }), keepalive: true });
+      if (r.ok) renderStats(await r.json());
+    } catch (_) {}
+  }
+  async function countVisit() {
+    try {
+      if (!sessionStorage.getItem("gh_visit")) {
+        sessionStorage.setItem("gh_visit", "1");          // one visit per browser session
+        const isNew = !localStorage.getItem("gh_vid");     // one visitor per browser (random id, no personal data)
+        if (isNew) localStorage.setItem("gh_vid", (crypto.randomUUID && crypto.randomUUID()) || String(Math.random()).slice(2));
+        return hit("visit", { newVisitor: isNew });
+      }
+      const r = await fetch("/api/stats");
+      if (r.ok) renderStats(await r.json());
+    } catch (_) {}
+  }
+
   // ---------- Hero art: gendered hero -> first chibi -> emoji ----------
   function artSources(code, g = gender, full = false) {
     const list = (CONFIG.heroExts || [".webp", ".png"]).map((ext) => `${CONFIG.heroPath}${code}-${g}${ext}`);
@@ -144,6 +183,7 @@
     result = null;
     setColor("#8B5CF6");
     track("quiz_start", { lang, gender });
+    hit("start");
     show("quiz");
     renderQuestion();
   }
@@ -196,6 +236,7 @@
   function finish() {
     result = score(answers);
     track("quiz_complete", { type: result.code, lang, gender });
+    hit("complete", { type: result.code, g: gender });
     history.replaceState({ screen: "quiz" }, "", `?r=${result.code}&g=${gender}&lang=${lang}`);
     renderResult();
     show("result", "replace"); // back from the result goes to the hero picker, not into the quiz
@@ -367,6 +408,7 @@
     document.querySelectorAll(".seg button[data-lang]").forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
     markGender();
     renderHome();
+    if (lastStats) renderStats(lastStats, false);
     if (!$("quiz").hidden) renderQuestion();
     if (result && !$("result").hidden) renderResult();
   }
@@ -425,4 +467,5 @@
   tilt.addEventListener("pointerleave", () => { tilt.style.setProperty("--rx", "0deg"); tilt.style.setProperty("--ry", "0deg"); });
 
   applyLang();
+  countVisit();
 })();

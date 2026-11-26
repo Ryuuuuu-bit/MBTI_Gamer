@@ -1,6 +1,7 @@
-# Static hosting for Railway: Caddy serves this folder on $PORT
-FROM caddy:2-alpine
-COPY Caddyfile /etc/caddy/Caddyfile
+# 16 Gamer Heroes on Railway: Node serves the site + visit counter (no npm packages)
+FROM node:22-alpine
+WORKDIR /srv
 COPY . /srv
-# Cache-busting: every deploy gets a new version on CSS/JS links
-RUN sed -i "s/__V__/$(date +%s)/g" /srv/index.html
+ENV PORT=8080 DATA_DIR=/data
+EXPOSE 8080
+CMD ["node", "server.js"]
