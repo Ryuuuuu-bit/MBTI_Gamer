@@ -3,3 +3,5 @@ art/**/*.png
 Dockerfile
 .dockerignore
 README.md
+# Old group art, no longer used by the site
+art/hero.webp
