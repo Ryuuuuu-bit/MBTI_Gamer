@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>คุณเป็นเกมเมอร์สายไหน? | What kind of gamer are you?</title>
+  <meta name="description" content="แบบทดสอบ 16 สายเกมเมอร์ ตอบ 12 ข้อ แชร์ลง IG Story ได้ทันที | 16 gamer types quiz, share to your IG Story.">
+  <meta property="og:title" content="คุณเป็นเกมเมอร์สายไหน? | What kind of gamer are you?">
+  <meta property="og:description" content="ตอบ 12 ข้อ รู้เลยว่าคุณคือเกมเมอร์ 1 ใน 16 แบบ">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0d0820">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="top">
+      <div class="logo">🎮 Gamer Type</div>
+      <div class="lang">
+        <button data-lang="th">TH</button><button data-lang="en">EN</button>
+      </div>
+    </header>
+
+    <!-- Intro -->
+    <section id="intro" class="screen">
+      <div class="friend" id="friendBox" hidden></div>
+      <div class="hero-emoji">🕹️</div>
+      <h1 data-t="title"></h1>
+      <p class="sub" data-t="subtitle"></p>
+      <div class="emoji-row">♟️ 🧪 👑 🌀 📜 🌙 🎙️ 🧭 🏆 💚 🛡️ 🏡 🎯 🌸 ⚡ 🎉</div>
+      <button class="btn primary big" id="startBtn" data-t="start"></button>
+      <p class="fine" data-t="disclaimer"></p>
+    </section>
+
+    <!-- Quiz -->
+    <section id="quiz" class="screen" hidden>
+      <div class="segments" id="segments"></div>
+      <div class="qnum" id="qnum"></div>
+      <h2 class="question" id="qText"></h2>
+      <div class="options">
+        <button class="btn option" id="optA"></button>
+        <button class="btn option" id="optB"></button>
+      </div>
+      <button class="link" id="backBtn" data-t="back"></button>
+    </section>
+
+    <!-- Result -->
+    <section id="result" class="screen" hidden>
+      <img id="cardImg" class="card-img" alt="">
+      <p class="hint" id="hint" hidden data-t="longPress"></p>
+      <div class="actions">
+        <button class="btn primary" id="shareBtn" data-t="share"></button>
+        <button class="btn" id="saveBtn" data-t="save"></button>
+        <button class="btn" id="copyBtn" data-t="copy"></button>
+      </div>
+      <p class="tag-friend" id="tagFriend"></p>
+
+      <div class="details">
+        <p class="desc" id="rDesc"></p>
+        <h3 data-t="strengths"></h3>
+        <ul class="chips" id="rStrengths"></ul>
+        <h3 data-t="genres"></h3>
+        <ul class="chips" id="rGenres"></ul>
+        <h3 data-t="duo"></h3>
+        <p class="duo" id="rDuo"></p>
+      </div>
+
+      <div class="gear" id="gearBox" hidden>
+        <h3 data-t="gear"></h3>
+        <ul id="gearList"></ul>
+      </div>
+      <a class="sponsor" id="sponsorBox" hidden target="_blank" rel="sponsored noopener"></a>
+
+      <button class="btn primary big" id="retryBtn" data-t="retry"></button>
+      <p class="fine" data-t="disclaimer"></p>
+    </section>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

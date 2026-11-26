@@ -1,0 +1,160 @@
+// ===== Config: fill these in before launch =====
+window.CONFIG = {
+  siteUrl: "",        // e.g. "gamertype.app" – printed on the Story card
+  igHandle: "",       // e.g. "@gamertype" – printed on the Story card
+  sponsor: null,      // e.g. { th: "สนับสนุนโดย ...", en: "Sponsored by ...", url: "https://..." }
+  gear: {}            // affiliate links per type, e.g. { INTJ: [{ label: "...", url: "https://..." }] }
+};
+
+// ===== UI text =====
+window.UI = {
+  th: {
+    title: "คุณเป็นเกมเมอร์สายไหน?",
+    subtitle: "ตอบ 12 ข้อ ใช้เวลาไม่ถึง 2 นาที แล้วรู้เลยว่าคุณคือเกมเมอร์ 1 ใน 16 แบบ",
+    start: "เริ่มเลย 🎮",
+    question: "ข้อ",
+    back: "ย้อนกลับ",
+    youAre: "เกมเมอร์สายของฉันคือ",
+    genres: "แนวเกมที่ใช่",
+    strengths: "จุดเด่น",
+    duo: "คู่หูที่เข้ากันที่สุด",
+    share: "แชร์ลง Story",
+    save: "บันทึกรูป",
+    copy: "คัดลอกลิงก์",
+    copied: "คัดลอกแล้ว!",
+    retry: "เล่นใหม่",
+    tryIt: "มาลองดูว่าคุณเป็นสายไหน",
+    tagFriend: "แท็กเพื่อนที่เป็นคู่หู {duo} ของคุณ 👇",
+    longPress: "กดค้างที่รูปเพื่อบันทึก แล้วอัปลง Story",
+    playYourself: "ลองทำแบบทดสอบเอง",
+    friendGot: "เพื่อนของคุณได้ผลนี้",
+    gear: "ของแนะนำสำหรับสายนี้",
+    shareText: "ฉันเป็นเกมเมอร์สาย {name} ({code}) แล้วคุณล่ะ?",
+    disclaimer: "แบบทดสอบเพื่อความบันเทิง ไม่ใช่การประเมินบุคลิกภาพทางจิตวิทยา"
+  },
+  en: {
+    title: "What kind of gamer are you?",
+    subtitle: "12 quick questions, under 2 minutes. Find out which of the 16 gamer types you are.",
+    start: "Let's go 🎮",
+    question: "Question",
+    back: "Back",
+    youAre: "My gamer type is",
+    genres: "Your genres",
+    strengths: "Strengths",
+    duo: "Best duo",
+    share: "Share to Story",
+    save: "Save image",
+    copy: "Copy link",
+    copied: "Copied!",
+    retry: "Play again",
+    tryIt: "Find out your gamer type",
+    tagFriend: "Tag your {duo} duo partner 👇",
+    longPress: "Long-press the image to save it, then post it to your Story",
+    playYourself: "Take the quiz yourself",
+    friendGot: "Your friend got",
+    gear: "Gear for your type",
+    shareText: "I'm a {name} ({code}) gamer. What are you?",
+    disclaimer: "Just for fun. Not a psychological personality assessment."
+  }
+};
+
+// ===== Axis labels (shown as bars on the result) =====
+window.AXES = {
+  E: { th: "สายปาร์ตี้", en: "Squad" },     I: { th: "สายเดี่ยว", en: "Solo" },
+  S: { th: "สายระบบ", en: "Mechanics" },   N: { th: "สายโลกเกม", en: "Worlds" },
+  T: { th: "สายชนะ", en: "Win" },          F: { th: "สายอิน", en: "Feels" },
+  J: { th: "สายแพลน", en: "Planner" },     P: { th: "สายด้นสด", en: "Freestyle" }
+};
+
+// ===== Questions: 3 per axis, interleaved. Option a -> first letter, b -> second =====
+window.QUESTIONS = [
+  { axis: "EI",
+    th: { q: "วันหยุดว่างทั้งวัน เปิดเกมแล้วคุณ...", a: "ทักเพื่อนเข้าดิสคอร์ดทันที", b: "ใส่หูฟัง ปิดแชท ลุยเดี่ยวยาวๆ" },
+    en: { q: "A free day, you boot up a game and...", a: "Ping the squad on Discord right away", b: "Headphones on, chat off, solo marathon" } },
+  { axis: "SN",
+    th: { q: "เข้าเกมใหม่ สิ่งแรกที่คุณทำคือ", a: "กดเล่นเลย จับฟีลการควบคุม", b: "สำรวจโลก หาว่ามีความลับอะไรซ่อนอยู่" },
+    en: { q: "New game. The first thing you do is", a: "Jump in and feel out the controls", b: "Explore the world and hunt for secrets" } },
+  { axis: "TF",
+    th: { q: "เพื่อนร่วมทีมเล่นพลาดจนแพ้", a: "บอกตรงๆ ว่าพลาดตรงไหน จะได้แก้", b: "ปลอบก่อน \"ไม่เป็นไร ตาหน้าเอาใหม่\"" },
+    en: { q: "A teammate's mistake costs you the match", a: "Tell them exactly what went wrong so they improve", b: "Comfort them: \"It's fine, we'll get the next one\"" } },
+  { axis: "JP",
+    th: { q: "ก่อนเริ่มเกม RPG ใหม่", a: "หาไกด์ วางบิลด์ไว้ล่วงหน้า", b: "ลุยเลย เดี๋ยวก็รู้เอง" },
+    en: { q: "Before starting a new RPG", a: "Read guides and plan the build", b: "Just dive in and figure it out" } },
+  { axis: "EI",
+    th: { q: "เกมที่มีแชทเสียง คุณมักจะ...", a: "เปิดไมค์ คุยไม่หยุด", b: "ปิดไมค์ พิมพ์เมื่อจำเป็น" },
+    en: { q: "In a game with voice chat, you usually...", a: "Mic on, never stop talking", b: "Mic off, type only when needed" } },
+  { axis: "SN",
+    th: { q: "เกมที่ดีที่สุดคือเกมที่...", a: "ระบบแน่น ควบคุมลื่น ตอบสนองแม่น", b: "โลกกว้าง ไอเดียแปลกใหม่ ไม่เหมือนใคร" },
+    en: { q: "The best games have...", a: "Tight systems and buttery controls", b: "Huge worlds and wild new ideas" } },
+  { axis: "TF",
+    th: { q: "เลือกตัวละครหรือคลาส คุณเลือก...", a: "ตัวที่เมต้าที่สุด ประสิทธิภาพสูงสุด", b: "ตัวที่รักที่สุด ถึงจะไม่เก่งก็ตาม" },
+    en: { q: "Picking a character or class, you go for...", a: "The meta pick with the best numbers", b: "The one you love, even if it's weak" } },
+  { axis: "JP",
+    th: { q: "ภารกิจรองเต็มแผนที่", a: "เคลียร์ทีละอันให้หมดก่อนไปต่อ", b: "ทำอันที่น่าสนใจ ที่เหลือช่างมัน" },
+    en: { q: "The map is full of side quests", a: "Clear them one by one before moving on", b: "Do the fun ones, skip the rest" } },
+  { axis: "EI",
+    th: { q: "เพิ่งชนะแมตช์สุดมันส์", a: "ส่งคลิปให้เพื่อน ลงโซเชียลทันที", b: "ยิ้มคนเดียว แล้วกดเล่นต่อ" },
+    en: { q: "You just won an epic match", a: "Send the clip to friends and post it", b: "Smile to yourself and queue again" } },
+  { axis: "SN",
+    th: { q: "ดูตัวอย่างเกมใหม่ คุณสนใจ...", a: "ฟุตเทจเกมเพลย์จริง ระบบ เฟรมเรต", b: "ทีเซอร์ลึกลับ และทฤษฎีของแฟนๆ" },
+    en: { q: "Watching a new game trailer, you care about...", a: "Real gameplay, systems, frame rate", b: "Mysterious teasers and fan theories" } },
+  { axis: "TF",
+    th: { q: "ฉากที่คุณจำได้ไม่ลืม", a: "บอสสุดโหดที่ต้องคิดกลยุทธ์ถึงจะผ่าน", b: "ฉากที่ทำให้น้ำตาไหล" },
+    en: { q: "The moment you'll never forget", a: "A brutal boss you had to out-think", b: "The scene that made you cry" } },
+  { axis: "JP",
+    th: { q: "Backlog เกมของคุณ", a: "มีลิสต์ เล่นจบทีละเกม", b: "เปิดค้างไว้ 5 เกม ยังไม่จบสักเกม" },
+    en: { q: "Your game backlog", a: "A neat list, finished one at a time", b: "Five games started, zero finished" } }
+];
+
+// ===== 16 gamer types =====
+// color: [top, bottom] gradient. Groups: NT purple, NF green, SJ blue, SP orange
+window.TYPES = {
+  INTJ: { emoji: "♟️", color: ["#4b1d8f", "#12062b"], duo: "ENFP",
+    th: { name: "นักวางแผน", tag: "ชนะตั้งแต่ก่อนกดเริ่มเกม", desc: "คุณมองเกมเป็นกระดานหมากรุก คิดล่วงหน้าหลายตา เกลียดการเล่นแบบไม่มีแผน และชอบชัยชนะที่มาจากสมอง", strengths: ["มองเกมขาด", "วางแผนยาว", "ใจเย็นกดดันไม่ได้"], genres: ["วางแผน (RTS/4X)", "การ์ดเกม", "ไขปริศนา"] },
+    en: { name: "The Strategist", tag: "Wins before pressing start", desc: "You see every game as a chessboard. You think several moves ahead, hate playing without a plan, and love victories earned with your brain.", strengths: ["Reads the game", "Long-term planning", "Ice cold under pressure"], genres: ["Strategy (RTS/4X)", "Card games", "Puzzle"] } },
+  INTP: { emoji: "🧪", color: ["#5b2a9e", "#1a0838"], duo: "ENTJ",
+    th: { name: "นักแกะระบบ", tag: "รู้สูตรดาเมจก่อนผู้พัฒนา", desc: "คุณสนุกกับการแกะว่าระบบทำงานยังไง ทดลองบิลด์แปลกๆ เปิดสเปรดชีตคำนวณ และมักเจอคอมโบที่ไม่มีใครคิดถึง", strengths: ["วิเคราะห์ลึก", "หาคอมโบลับ", "ทดลองไม่หยุด"], genres: ["Roguelike", "Automation/สร้างโรงงาน", "Sandbox"] },
+    en: { name: "The Theorycrafter", tag: "Knows the damage formula better than the devs", desc: "You love figuring out how systems really work. You test weird builds, open spreadsheets, and find combos nobody else thought of.", strengths: ["Deep analysis", "Finds hidden combos", "Endless experiments"], genres: ["Roguelike", "Automation", "Sandbox"] } },
+  ENTJ: { emoji: "👑", color: ["#6a1fb0", "#1d0640"], duo: "INTP",
+    th: { name: "กัปตันไต่แรงค์", tag: "แรงค์ต้องขึ้น ทีมต้องชนะ", desc: "คุณเกิดมาเพื่อนำทีมและไต่แรงค์ ตั้งเป้าชัด สั่งการเด็ดขาด และไม่ยอมแพ้จนกว่าจะถึงจุดสูงสุด", strengths: ["ผู้นำโดยธรรมชาติ", "มุ่งเป้าหมาย", "ตัดสินใจไว"], genres: ["MOBA", "FPS แข่งขัน", "Battle Royale แรงค์"] },
+    en: { name: "The Esports Captain", tag: "Rank goes up. Team wins. Period.", desc: "You were born to lead and climb. Clear goals, decisive calls, and you don't stop until you reach the top.", strengths: ["Natural leader", "Goal-driven", "Fast decisions"], genres: ["MOBA", "Competitive FPS", "Ranked battle royale"] } },
+  ENTP: { emoji: "🌀", color: ["#7b2cbf", "#240a46"], duo: "INFJ",
+    th: { name: "ตัวป่วน", tag: "ถ้าเกมมีบัค ฉันจะหาเจอ", desc: "คุณชอบทำสิ่งที่เกมไม่ได้ตั้งใจให้ทำ ลองกลยุทธ์บ้าๆ หาบัค สปีดรัน และทำให้ทั้งทีมหัวเราะ (หรือปวดหัว)", strengths: ["ความคิดสร้างสรรค์", "พลิกเกมได้", "สนุกทุกตา"], genres: ["Sandbox ฟิสิกส์", "Party/Social deduction", "Immersive sim"] },
+    en: { name: "The Chaos Agent", tag: "If there's a bug, I'll find it", desc: "You love doing things the game never intended. Crazy strategies, glitches, speedruns, and making the whole squad laugh (or groan).", strengths: ["Creative thinking", "Game-changing plays", "Every match is fun"], genres: ["Physics sandbox", "Social deduction", "Immersive sim"] } },
+  INFJ: { emoji: "📜", color: ["#1b7a5a", "#06281d"], duo: "ENTP",
+    th: { name: "ผู้เฝ้าตำนาน", tag: "อ่านทุกโน้ต ฟังทุกบทพูด", desc: "คุณเล่นเกมเพื่อเรื่องราวและความหมาย จำชื่อตัวละครรองได้หมด และมีทฤษฎีเนื้อเรื่องของตัวเองเสมอ", strengths: ["เข้าใจเรื่องลึก", "จับรายละเอียดเก่ง", "อินสุดใจ"], genres: ["Story RPG", "Narrative adventure", "Visual novel"] },
+    en: { name: "The Lore Keeper", tag: "Reads every note, hears every line", desc: "You play for story and meaning. You remember every side character's name and always have your own lore theory.", strengths: ["Deep understanding", "Eye for detail", "Fully immersed"], genres: ["Story RPG", "Narrative adventure", "Visual novel"] } },
+  INFP: { emoji: "🌙", color: ["#23906a", "#073022"], duo: "ENFJ",
+    th: { name: "นักฝันสายอินดี้", tag: "เกมนี้ไม่ดังแต่ใจฉันพัง", desc: "คุณรักเกมที่มีหัวใจ ภาพสวย เพลงเพราะ เนื้อเรื่องแตะใจ และมักค้นพบเกมอินดี้ที่คนอื่นยังไม่รู้จัก", strengths: ["รสนิยมเฉพาะตัว", "อินกับอารมณ์", "ค้นพบของดี"], genres: ["Indie", "Exploration", "Cozy story"] },
+    en: { name: "The Indie Dreamer", tag: "Nobody knows this game, but it broke me", desc: "You love games with heart: beautiful art, great music, stories that hit. You find indie gems before anyone else.", strengths: ["Unique taste", "Emotionally tuned in", "Finds hidden gems"], genres: ["Indie", "Exploration", "Cozy story"] } },
+  ENFJ: { emoji: "🎙️", color: ["#2aa676", "#0a3a27"], duo: "INFP",
+    th: { name: "สตรีมเมอร์ตัวจริง", tag: "เล่นเกมคือการพาทุกคนมาสนุกด้วยกัน", desc: "คุณทำให้ทุกเกมกลายเป็นงานปาร์ตี้ เป็นคนชวนเพื่อนเล่น สอนมือใหม่ และทำให้บรรยากาศในทีมดีเสมอ", strengths: ["สร้างบรรยากาศ", "ดูแลทีม", "สอนเก่ง"], genres: ["Co-op", "MMORPG", "Party game"] },
+    en: { name: "The Streamer", tag: "Gaming is bringing everyone along", desc: "You turn every game into a party. You invite friends, teach newbies, and keep the squad's vibe positive.", strengths: ["Sets the vibe", "Looks after the team", "Great teacher"], genres: ["Co-op", "MMORPG", "Party games"] } },
+  ENFP: { emoji: "🧭", color: ["#33b580", "#0c4430"], duo: "INTJ",
+    th: { name: "นักผจญภัย", tag: "เส้นทางหลัก? เดี๋ยวค่อยไป", desc: "คุณหลงทางในโลกเกมอย่างมีความสุข ชอบลองทุกอย่างใหม่ๆ เปลี่ยนเกมบ่อย และตื่นเต้นกับทุกการค้นพบ", strengths: ["อยากรู้อยากเห็น", "กล้าลอง", "พลังบวกล้น"], genres: ["Open world", "Survival crafting", "Adventure"] },
+    en: { name: "The Explorer", tag: "Main quest? Later.", desc: "You happily get lost in game worlds. You try everything new, hop between games, and get excited by every discovery.", strengths: ["Endless curiosity", "Tries anything", "Positive energy"], genres: ["Open world", "Survival crafting", "Adventure"] } },
+  ISTJ: { emoji: "🏆", color: ["#1d4f9c", "#06173a"], duo: "ESFP",
+    th: { name: "สายเก็บ 100%", tag: "ยังไม่ได้ทุกถ้วยรางวัล ยังไม่จบ", desc: "คุณเล่นทุกเกมให้จบอย่างสมบูรณ์ เก็บของครบ ทำทุกภารกิจ และรู้สึกฟินทุกครั้งที่เห็นตัวเลข 100%", strengths: ["อดทนสูง", "ละเอียดทุกจุด", "มีวินัย"], genres: ["Action RPG", "Metroidvania", "Collectathon"] },
+    en: { name: "The Completionist", tag: "Not every trophy yet? Not finished.", desc: "You finish games properly. Every collectible, every quest, and nothing beats seeing that 100%.", strengths: ["Huge patience", "Thorough", "Disciplined"], genres: ["Action RPG", "Metroidvania", "Collectathon"] } },
+  ISFJ: { emoji: "💚", color: ["#2563b8", "#081d45"], duo: "ESTP",
+    th: { name: "ซัพพอร์ตใจดี", tag: "ทีมรอด เพราะฉันฮีลให้", desc: "คุณคือคนที่ทุกทีมอยากได้ คอยฮีล คอยดูแล ไม่ต้องการแสงไฟ แค่อยากเห็นเพื่อนชนะ", strengths: ["ใส่ใจทีม", "เชื่อถือได้", "อ่านสถานการณ์เก่ง"], genres: ["MOBA (ซัพพอร์ต)", "MMORPG ฮีลเลอร์", "Co-op"] },
+    en: { name: "The Support Main", tag: "The team survives because I heal", desc: "You're the player every team wants. Healing, protecting, never needing the spotlight. You just want your friends to win.", strengths: ["Team-first", "Reliable", "Great awareness"], genres: ["MOBA (support)", "MMORPG healer", "Co-op"] } },
+  ESTJ: { emoji: "🛡️", color: ["#2b6fd1", "#0a2352"], duo: "ISFP",
+    th: { name: "หัวหน้าเรด", tag: "ทุกคนเข้าตำแหน่ง! นับถอยหลัง 3...", desc: "คุณจัดตารางเรด แบ่งหน้าที่ และทำให้ทีมเดินตามแผน ระเบียบคือกุญแจสู่ชัยชนะ", strengths: ["จัดการเก่ง", "สั่งการชัดเจน", "รับผิดชอบสูง"], genres: ["MMORPG เรด", "Tactical shooter", "Guild war"] },
+    en: { name: "The Raid Leader", tag: "Everyone in position! 3...", desc: "You schedule raids, assign roles, and keep the team on plan. Order is the key to victory.", strengths: ["Organized", "Clear callouts", "Responsible"], genres: ["MMORPG raids", "Tactical shooter", "Guild wars"] } },
+  ESFJ: { emoji: "🏡", color: ["#3a7fe0", "#0c2a5e"], duo: "ISTP",
+    th: { name: "พ่อแม่กิลด์", tag: "กินข้าวยัง? เข้าเกมมา เดี๋ยวพาฟาร์ม", desc: "คุณคือหัวใจของกิลด์ จำวันเกิดเพื่อนในเกม จัดอีเวนต์ และทำให้ทุกคนรู้สึกเป็นส่วนหนึ่ง", strengths: ["สร้างชุมชน", "อบอุ่น", "ใจกว้าง"], genres: ["MMORPG", "Life sim", "Social game"] },
+    en: { name: "The Guild Parent", tag: "Eaten yet? Hop on, I'll carry you", desc: "You're the heart of the guild. You remember everyone's birthday, run events, and make people feel they belong.", strengths: ["Community builder", "Warm", "Generous"], genres: ["MMORPG", "Life sim", "Social games"] } },
+  ISTP: { emoji: "🎯", color: ["#c2410c", "#3d1203"], duo: "ESFJ",
+    th: { name: "มือโปร", tag: "พูดน้อย ยิงหัว", desc: "คุณเชื่อในฝีมือล้วนๆ ฝึกเอม เรียนรู้แพทเทิร์นบอส และชอบความยากที่ต้องใช้มือกับสมาธิ", strengths: ["มือแม่น", "เรียนรู้ไว", "ใจนิ่ง"], genres: ["Soulslike", "FPS", "Fighting game"] },
+    en: { name: "The Mechanic", tag: "Few words. Headshots.", desc: "You trust pure skill. You train your aim, learn boss patterns, and love challenges that demand hands and focus.", strengths: ["Precise hands", "Fast learner", "Calm nerves"], genres: ["Soulslike", "FPS", "Fighting games"] } },
+  ISFP: { emoji: "🌸", color: ["#d9581a", "#451805"], duo: "ESTJ",
+    th: { name: "สายชิลแต่งบ้าน", tag: "เกมนี้มีให้แต่งบ้านไหม?", desc: "คุณเล่นเกมเพื่อพักใจ ชอบสร้าง แต่งตัวละคร ตกแต่งบ้าน และใช้เวลาหลายชั่วโมงกับการทำให้ทุกอย่างสวย", strengths: ["ตาศิลปิน", "ใจเย็น", "สร้างสรรค์"], genres: ["Cozy/Farming", "Building", "Character customization"] },
+    en: { name: "The Cozy Creator", tag: "Can I decorate a house in this game?", desc: "You game to relax. Building, dressing up characters, decorating, spending hours making everything look just right.", strengths: ["Artist's eye", "Calm", "Creative"], genres: ["Cozy/Farming", "Building", "Character customization"] } },
+  ESTP: { emoji: "⚡", color: ["#ea6a12", "#4a1e04"], duo: "ISFJ",
+    th: { name: "สายบวกก่อนคิด", tag: "แผนคืออะไร? ลุย!", desc: "คุณมีชีวิตอยู่เพื่อจังหวะคลัตช์ วิ่งเข้าหาไฟต์ก่อนใคร ตัดสินใจในเสี้ยววินาที และเล่นเพื่ออะดรีนาลีน", strengths: ["กล้าได้กล้าเสีย", "รีแอคไว", "พลิกเกมช่วงท้าย"], genres: ["Battle Royale", "Racing", "Action"] },
+    en: { name: "The Clutch Player", tag: "Plan? What plan? GO!", desc: "You live for clutch moments. First into every fight, split-second decisions, pure adrenaline.", strengths: ["Fearless", "Fast reactions", "Late-game comebacks"], genres: ["Battle royale", "Racing", "Action"] } },
+  ESFP: { emoji: "🎉", color: ["#f08a1c", "#4d2a05"], duo: "ISTJ",
+    th: { name: "ตัวตึงปาร์ตี้เกม", tag: "แพ้ไม่เป็นไร ขอให้ฮา", desc: "คุณคือคนที่ทำให้ห้องเสียงดังที่สุด ชอบเกมเล่นกับเพื่อน เกมเต้น เกมปาร์ตี้ ความสนุกสำคัญกว่าผลแพ้ชนะ", strengths: ["ทำให้ทุกคนสนุก", "เข้ากับคนง่าย", "พลังล้น"], genres: ["Party game", "Rhythm/เต้น", "Couch co-op"] },
+    en: { name: "The Party Starter", tag: "Losing is fine if it's funny", desc: "You're the loudest one in the room. Party games, rhythm games, couch co-op. Fun beats winning every time.", strengths: ["Makes it fun for all", "Easy to get along with", "Boundless energy"], genres: ["Party games", "Rhythm", "Couch co-op"] } }
+};

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>16 Gamer Types · คุณเป็นเกมเมอร์สายไหน?</title>
+  <meta name="description" content="แบบทดสอบเกมเมอร์ 16 สาย ตอบ 20 ข้อ เจอตัวละคร chibi ประจำตัว แชร์ลง IG Story ได้ทันที | 16 gamer types quiz with a shareable IG Story card.">
+  <meta property="og:title" content="16 Gamer Types · คุณเป็นเกมเมอร์สายไหน?">
+  <meta property="og:description" content="ตอบ 20 ข้อ เจอตัวละครประจำตัวคุณจากเกมเมอร์ 16 สาย">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#07060f">
+  <meta name="color-scheme" content="dark">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300..700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav glass">
+    <a class="brand" href="./" id="homeLink"><span class="brand-dot"></span>16 Gamer Types</a>
+    <div class="seg" role="group" aria-label="Language">
+      <button data-lang="th">TH</button><button data-lang="en">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HOME ============ -->
+    <section id="home" class="view">
+      <div class="friend glass" id="friendBox" hidden></div>
+
+      <div class="hero">
+        <div class="hero-text">
+          <span class="pill" data-t="badge"></span>
+          <h1 data-th="heroTitle"></h1>
+          <p class="lead" data-t="heroSub"></p>
+          <div class="cta">
+            <button class="btn primary xl" id="startBtn"><span data-t="start"></span><span class="arrow">→</span></button>
+            <a class="btn ghost" href="#gallery" data-t="seeAll"></a>
+          </div>
+          <ul class="chips" id="heroChips"></ul>
+        </div>
+        <div class="hero-art" id="heroArt"></div>
+      </div>
+
+      <section class="block" id="gallery">
+        <h2 data-t="galleryTitle"></h2>
+        <p class="muted" data-t="gallerySub"></p>
+        <div class="groups" id="groups"></div>
+      </section>
+
+      <section class="block">
+        <h2 data-t="aboutTitle"></h2>
+        <div class="bento about" id="about"></div>
+        <p class="fine" data-t="notAffiliated"></p>
+      </section>
+    </section>
+
+    <!-- ============ QUIZ ============ -->
+    <section id="quiz" class="view" hidden>
+      <div class="quiz-top">
+        <button class="icon-btn" id="quitBtn" aria-label="Quit">✕</button>
+        <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+        <span class="qcount" id="qCount"></span>
+      </div>
+      <div class="qcard glass" id="qCard">
+        <h2 class="qtext" id="qText"></h2>
+        <button class="stmt a" id="stmtA"></button>
+        <div class="scale" role="radiogroup" id="scale">
+          <button class="dot a2" data-v="2"></button>
+          <button class="dot a1" data-v="1"></button>
+          <button class="dot b1" data-v="-1"></button>
+          <button class="dot b2" data-v="-2"></button>
+        </div>
+        <button class="stmt b" id="stmtB"></button>
+        <p class="hint" data-t="pickHint"></p>
+      </div>
+      <button class="link" id="backBtn" data-t="back"></button>
+    </section>
+
+    <!-- ============ RESULT ============ -->
+    <section id="result" class="view" hidden>
+      <div class="bento result">
+        <article class="tile r-hero glass">
+          <div class="tilt" id="rArt"></div>
+          <div class="r-id">
+            <span class="eyebrow" data-t="youAre"></span>
+            <div class="code" id="rCode"></div>
+            <h1 class="r-name" id="rName"></h1>
+            <p class="r-tag" id="rTag"></p>
+            <span class="pill group-pill" id="rGroup"></span>
+          </div>
+        </article>
+
+        <article class="tile r-axes glass">
+          <h3 data-t="axesTitle"></h3>
+          <div id="rAxes"></div>
+          <p class="note" id="rBorderNote" hidden data-t="borderlineNote"></p>
+        </article>
+
+        <article class="tile r-card glass">
+          <h3 data-t="storyCard"></h3>
+          <img id="cardImg" class="story" alt="">
+          <div class="actions">
+            <button class="btn primary" id="shareBtn" data-t="share"></button>
+            <button class="btn" id="saveBtn" data-t="save"></button>
+            <button class="btn" id="copyBtn" data-t="copy"></button>
+          </div>
+          <p class="note" id="hint" hidden data-t="longPress"></p>
+        </article>
+
+        <article class="tile r-desc glass">
+          <p class="desc" id="rDesc"></p>
+          <h3 data-t="strengths"></h3>
+          <ul class="chips" id="rStrengths"></ul>
+          <h3 data-t="genres"></h3>
+          <ul class="chips" id="rGenres"></ul>
+        </article>
+
+        <article class="tile r-duo glass" id="rDuoTile">
+          <h3 data-t="duo"></h3>
+          <div class="duo-row" id="rDuo"></div>
+          <p class="note" id="rTagFriend"></p>
+        </article>
+
+        <article class="tile r-theory glass">
+          <h3 data-t="theory"></h3>
+          <p id="rTheory"></p>
+        </article>
+
+        <article class="tile r-gear glass" id="gearBox" hidden>
+          <h3 data-t="gear"></h3>
+          <ul id="gearList"></ul>
+        </article>
+      </div>
+      <a class="sponsor" id="sponsorBox" hidden target="_blank" rel="sponsored noopener"></a>
+      <div class="cta center">
+        <button class="btn primary xl" id="retryBtn" data-t="retry"></button>
+      </div>
+      <p class="fine" data-t="notAffiliated"></p>
+    </section>
+  </main>
+
+  <dialog id="typeDialog" class="glass">
+    <button class="icon-btn close" id="dlgClose" aria-label="Close">✕</button>
+    <div id="dlgBody"></div>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

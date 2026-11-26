@@ -1,0 +1,73 @@
+:root {
+  --bg: #0d0820;
+  --card: #1a1236;
+  --text: #f5f1ff;
+  --muted: #b9b0d6;
+  --accent: #8b5cf6;
+  --accent2: #22d3ee;
+  --radius: 18px;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: "Kanit", system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+  min-height: 100dvh;
+  background: radial-gradient(1200px 600px at 50% -10%, #3b1d7a 0%, var(--bg) 60%);
+}
+#app { max-width: 480px; margin: 0 auto; padding: 16px 20px calc(32px + env(safe-area-inset-bottom)); min-height: 100dvh; display: flex; flex-direction: column; }
+.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.logo { font-weight: 800; letter-spacing: .02em; }
+.lang { display: flex; background: var(--card); border-radius: 999px; padding: 3px; }
+.lang button { background: none; border: 0; color: var(--muted); font: inherit; font-weight: 600; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.lang button.on { background: var(--accent); color: #fff; }
+
+.screen { flex: 1; display: flex; flex-direction: column; gap: 14px; animation: in .35s ease; }
+@keyframes in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+#intro { justify-content: center; text-align: center; }
+.hero-emoji { font-size: 84px; line-height: 1; }
+h1 { font-size: 34px; line-height: 1.2; margin: 0; font-weight: 800; }
+.sub { color: var(--muted); margin: 0; font-size: 17px; }
+.emoji-row { font-size: 24px; letter-spacing: 4px; line-height: 1.6; opacity: .9; }
+.fine { color: var(--muted); font-size: 12px; text-align: center; opacity: .7; margin: 8px 0 0; }
+
+.btn {
+  font: inherit; font-size: 17px; font-weight: 600; color: var(--text);
+  background: var(--card); border: 2px solid #2d2257; border-radius: var(--radius);
+  padding: 14px 18px; cursor: pointer; transition: transform .1s, background .2s, border-color .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(.97); }
+.btn.primary { background: linear-gradient(135deg, var(--accent), #ec4899); border-color: transparent; color: #fff; }
+.btn.big { font-size: 20px; padding: 18px; }
+.link { background: none; border: 0; color: var(--muted); font: inherit; cursor: pointer; padding: 8px; align-self: center; }
+.link[disabled] { visibility: hidden; }
+
+/* Story-style progress segments */
+.segments { display: flex; gap: 4px; margin-top: 4px; }
+.segments span { flex: 1; height: 4px; border-radius: 4px; background: #2d2257; overflow: hidden; }
+.segments span.done { background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+.qnum { color: var(--muted); font-size: 14px; margin-top: 18px; }
+.question { font-size: 28px; line-height: 1.3; margin: 0 0 10px; min-height: 3.9em; }
+.options { display: flex; flex-direction: column; gap: 12px; }
+.option { text-align: left; font-size: 19px; padding: 22px 20px; min-height: 84px; }
+.option:hover { border-color: var(--accent); }
+
+/* Result */
+.card-img { width: 100%; aspect-ratio: 9 / 16; border-radius: var(--radius); box-shadow: 0 20px 60px rgba(0,0,0,.5); background: var(--card); object-fit: cover; }
+.hint { color: var(--accent2); text-align: center; margin: 0; font-size: 14px; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.actions .primary { grid-column: 1 / -1; }
+.tag-friend { text-align: center; margin: 0; color: var(--muted); }
+.details { background: var(--card); border-radius: var(--radius); padding: 18px; }
+.details h3, .gear h3 { font-size: 15px; color: var(--muted); margin: 16px 0 8px; font-weight: 600; }
+.desc { margin: 0; line-height: 1.6; }
+.chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips li { background: #2d2257; padding: 6px 12px; border-radius: 999px; font-size: 14px; }
+.duo { margin: 0; font-size: 17px; }
+.duo a { color: var(--accent2); }
+.gear ul { padding-left: 18px; margin: 0; }
+.gear a, .sponsor { color: var(--accent2); }
+.sponsor { display: block; text-align: center; font-size: 14px; }
+.friend { background: var(--card); border: 2px solid var(--accent); border-radius: var(--radius); padding: 14px; font-size: 16px; }
+.friend b { font-size: 20px; }
